@@ -3,345 +3,362 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TSUMORI貯金 - スワイプで楽しく貯金管理</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>orm4n5 App Studio - 公式サイト</title>
     <style>
-        /* --- 基本設定（ライトモード・ミントグリーン基調） --- */
         :root {
-            --bg-color: #f0fdf4; /* 薄いグリーンの背景 */
+            --primary-color: #1a73e8;
+            --accent-color: #34a853;
+            --text-main: #202124;
+            --text-sub: #5f6368;
+            --bg-color: #f8f9fa;
             --card-bg: #ffffff;
-            --accent-color: #0d9488; /* アプリヘッダーに合わせたティールグリーン */
-            --text-main: #334155;
-            --text-sub: #64748b;
-            --text-dark: #0f172a;
+            --disabled-color: #dadce0;
         }
 
-        *, *::before, *::after {
+        /* 要素の幅計算を直感的にするためのリセット */
+        * {
             box-sizing: border-box;
         }
 
         body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
             margin: 0;
             padding: 0;
-            font-family: 'Inter', 'Noto Sans JP', sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        /* --- レイアウト共通 --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* --- ヘッダー --- */
         header {
-            padding: 30px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent-color);
-            text-decoration: none;
-        }
-
-        /* --- ヒーローセクション（1つ目のモックアップ） --- */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 60px 0 80px;
-            gap: 40px;
-        }
-
-        .hero-content {
-            flex: 1;
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            line-height: 1.3;
-            margin: 0 0 24px 0;
-            color: var(--text-dark);
-            font-weight: 700;
-        }
-
-        .hero-description {
-            font-size: 1.2rem;
-            color: var(--text-sub);
-            margin: 0 0 40px 0;
-        }
-
-        /* --- スマホモックアップ共通スタイル --- */
-        .phone-wrapper {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            perspective: 1000px;
-        }
-
-        .phone-mockup {
-            width: 280px;
-            height: 580px;
-            background: #ffffff;
-            border: 8px solid #cbd5e1; /* ライトグレーのフレーム */
-            border-radius: 36px;
-            position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            overflow: hidden;
-        }
-
-        /* インカメラ部分のノッチ */
-        .phone-mockup::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 25px;
-            background: #cbd5e1;
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
-            z-index: 10;
-        }
-
-        .phone-mockup video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 28px;
-        }
-
-        /* --- ボタン --- */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--accent-color);
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
             color: white;
-            padding: 16px 32px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 6px -1px rgba(13, 148, 136, 0.2);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            background-color: #0f766e;
-            box-shadow: 0 10px 15px -3px rgba(13, 148, 136, 0.3);
-        }
-
-        /* --- 追加された文章セクション（特徴・ボリュームアップ部分） --- */
-        .features-section {
-            background-color: var(--card-bg);
-            padding: 80px 0;
-            border-radius: 24px;
-            margin-bottom: 80px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-
-        .section-title {
+            padding: 4rem 1rem 5rem; /* 下部の余白を少し増やしてカードの重なりを綺麗に */
             text-align: center;
-            font-size: 2.2rem;
-            color: var(--text-dark);
-            margin: 0 0 16px 0;
-            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-sub);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto 50px auto;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            padding: 0 40px;
-        }
-
-        .feature-item {
-            background-color: #f8fafc;
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            background-color: #ccfbf1;
-            color: var(--accent-color);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-
-        .feature-item h3 {
-            font-size: 1.3rem;
-            color: var(--text-dark);
-            margin: 0 0 12px 0;
-            font-weight: 600;
-        }
-
-        .feature-item p {
+        header h1 {
             margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            margin: 1rem 0 0;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: -3rem auto 3rem; /* ヘッダーへの食い込みを調整 */
+            padding: 0 1.5rem;
+        }
+
+        .app-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .app-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 0.75rem 0;
+            color: var(--primary-color);
+        }
+
+        .app-desc {
+            font-size: 1rem;
             color: var(--text-sub);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        /* --- 節約効果分析セクション --- */
+        .savings-impact {
+            background-color: rgba(52, 168, 83, 0.05);
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .impact-title {
+            font-weight: 700;
+            color: #2e7d32;
+            display: block;
+            margin-bottom: 0.5rem;
             font-size: 0.95rem;
         }
 
-        /* --- 2つ目のモックアップセクション --- */
-        .secondary-showcase {
+        .savings-impact ul {
+            margin: 0;
+            padding-left: 1.2rem;
+            font-size: 0.9rem;
+            color: var(--text-sub);
+        }
+
+        .savings-impact li {
+            margin-bottom: 0.4rem;
+        }
+
+        .savings-impact li:last-child {
+            margin-bottom: 0;
+        }
+
+        .links {
             display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: auto;
             align-items: center;
-            justify-content: space-between;
-            padding: 60px 0 120px;
-            gap: 40px;
         }
 
-        .secondary-showcase .hero-content {
-            order: 2; /* テキストを右側に配置 */
+        .btn-play {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
         }
 
-        .secondary-showcase .phone-wrapper {
-            order: 1; /* モックアップを左側に配置 */
+        .btn-play:hover {
+            background-color: #1557b0;
         }
 
-        /* --- フッター --- */
+        /* 公開準備中ボタン */
+        .btn-soon {
+            background-color: var(--disabled-color);
+            color: #70757a;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .btn-privacy {
+            background-color: transparent;
+            color: var(--text-sub);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            border: 1px solid #dadce0;
+            transition: all 0.2s;
+        }
+
+        .btn-privacy:hover {
+            background-color: #f1f3f4;
+            color: var(--text-main);
+        }
+
+        /* プロンプト編集ページへのリンク用クラス */
+        .prompt-edit-link {
+            width: 100%;
+            margin-top: 0.5rem;
+            text-decoration: none;
+            font-size: 0.85rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            display: block;
+        }
+
+        .prompt-edit-link:hover {
+            text-decoration: underline;
+        }
+
         footer {
             text-align: center;
-            padding: 40px 0;
+            padding: 4rem 1rem;
             color: var(--text-sub);
             font-size: 0.9rem;
-            border-top: 1px solid #e2e8f0;
         }
 
-        /* --- レスポンシブ対応 --- */
-        @media (max-width: 900px) {
-            .feature-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-                padding: 0 20px;
+        /* ----- スマホ向け最適化 (レスポンシブ) ----- */
+        @media (max-width: 600px) {
+            header { padding: 3rem 1rem 4rem; }
+            header h1 { font-size: 1.8rem; }
+            
+            .container { 
+                padding: 0 1rem; 
+                margin-top: -2.5rem;
             }
-        }
+            
+            .app-card { 
+                padding: 1.5rem; 
+                margin-bottom: 1.5rem;
+            }
+            
+            .app-name { 
+                font-size: 1.3rem; 
+            }
+            
+            .app-desc { 
+                font-size: 0.95rem; 
+                margin-bottom: 1.2rem;
+            }
+            
+            .links { 
+                flex-direction: column; 
+                gap: 0.8rem; 
+                align-items: stretch; /* ボタンを横幅いっぱいに広げる */
+            }
+            
+            .btn-play, .btn-privacy { 
+                width: 100%; 
+                text-align: center; 
+                justify-content: center; 
+                padding: 0.8rem 1rem; /* タップしやすいように高さを確保 */
+                font-size: 0.95rem;
+            }
 
-        @media (max-width: 768px) {
-            .hero, .secondary-showcase {
-                flex-direction: column;
-                text-align: center;
-                padding: 40px 0;
-            }
-            .secondary-showcase .hero-content {
-                order: 1;
-            }
-            .secondary-showcase .phone-wrapper {
-                order: 2;
-            }
-            .hero-title {
-                font-size: 2.2rem;
-            }
-            .section-title {
-                font-size: 1.8rem;
-            }
-            .phone-mockup {
-                width: 240px;
-                height: 500px;
+            .prompt-edit-link {
+                text-align: center; /* スマホでは中央揃えにして見栄えを良くする */
+                margin-top: 0.8rem;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
 
+<header>
+    <h1>Studio Orishin</h1>
+    <p>Androidアプリのリリース作品紹介</p>
+</header>
+
 <div class="container">
-    <header>
-        <a href="#" class="logo">TSUMORI貯金</a>
-    </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">わずか3秒で記録。<br>スワイプで楽しく<br>「つもり貯金」</h1>
-            <p class="hero-description">
-                ジュースやコーヒーを我慢したその瞬間に。直感的な操作と達成感のある演出で、あなたの節約を楽しくサポートします。
-            </p>
-            <a href="https://play.google.com/store/apps/details?id=com.ormsng.tsumori" class="btn" target="_blank" rel="noopener noreferrer">
-                Google Play でダウンロード
-            </a>
-        </div>
-
-        <div class="phone-wrapper">
-            <div class="phone-mockup">
-                <video autoplay muted loop playsinline>
-                    <source src="1000008827.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </div>
-    </section>
-
-    <section class="features-section">
-        <h2 class="section-title">あなたのライフスタイルに合わせた3つの記録方法</h2>
-        <p class="section-subtitle">日々の突発的な我慢から、毎月の固定費の管理まで、これ一つでスマートに完結します。</p>
+    <div class="app-card">
+        <h2 class="app-name">TSUMORI貯金 (つもり貯金)</h2>
+        <p class="app-desc">
+            貯めたつもりで楽しく節約！支出を抑えたいあなたのための、シンプルで続けやすい貯金サポートアプリです。
+        </p>
         
-        <div class="feature-grid">
-            <div class="feature-item">
-                <div class="feature-icon">1</div>
-                <h3>スポット入力</h3>
-                <p>日常の「ちょっとした我慢」をその場でサクッと記録。金額と内容を入力して上にスワイプするだけで、爽快な演出とともに貯金がカウントされます。</p>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">2</div>
-                <h3>1回予算管理</h3>
-                <p>「ランチ代」や「お出かけ」など、その時限りの予算を設定して実際の支出を記録。予算内に収めるゲーム感覚の手軽さで、無駄遣いを防ぎます。</p>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">3</div>
-                <h3>月予算管理</h3>
-                <p>食費や趣味代など、毎月の固定予算をカテゴリ別に管理。自分が今月あとどれくらい使えるのかが、ひと目で直感的に把握できます。</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="secondary-showcase">
-        <div class="hero-content">
-            <h2 class="hero-title" style="font-size: 2.5rem;">目標を設定して、<br>モチベーションを維持。</h2>
-            <p class="hero-description">
-                ただ貯金するだけでなく、欲しいものや旅行などの「目標カード」を作成可能。あといくらで目標を達成できるかが常に可視化されるため、途中で挫折することなく楽しく続けられます。
-            </p>
+        <div class="savings-impact">
+            <span class="impact-title">💡 調査分析：つもり貯金の節約効果</span>
+            <ul>
+                <li><strong>毎日の少額が大きな資産に：</strong> 1日1回、300円のカフェ代やコンビニ菓子を「つもり貯金」するだけで、月間約9,000円、年間でなんと約109,500円の節約につながります。</li>
+                <li><strong>行動経済学のアプローチ：</strong> 出費を我慢したことによる「損失感」を、アプリ上で貯金が増える「達成感」に変換し視覚化することで、節約が苦痛からゲーム感覚の楽しさへと変化します。</li>
+            </ul>
         </div>
 
-        <div class="phone-wrapper">
-            <div class="phone-mockup">
-                <video autoplay muted loop playsinline>
-                    <source src="second_video.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
+        <div class="links">
+            <a href="https://play.google.com/store/apps/details?id=com.ormsng.tsumori&pcampaignid=web_share" class="btn-play" target="_blank">Google Play で手に入れる</a>
+            <a href="https://orm4n5.github.io/tsumori-lp" class="btn-privacy" target="_blank">紹介ページ</a>
+            <a href="privacy_tsumori.html" class="btn-privacy">プライバシーポリシー</a>
         </div>
-    </section>
+    </div>
+
+    <div class="app-card">
+        <h2 class="app-name">PROMPT STORAGE</h2>
+        <p class="app-desc">
+            AIプロンプトをスマートに管理。<br>スマホでの運用に特化し、一瞬でコピー＆ペーストが可能なプロンプト保管庫です。
+        </p>
+        <div class="links">
+            <a href="https://play.google.com/store/apps/details?id=com.orishin.prompt_storage&pcampaignid=web_share" class="btn-play" target="_blank">Google Play で手に入れる</a>
+            <a href="privacy_promptstorage.html" class="btn-privacy">プライバシーポリシー</a>
+            <a href="prompt-editor.html" class="prompt-edit-link">【プロンプト作成・編集ページはこちら（プレミアム版のみ利用可能）】</a>
+        </div>
+    </div>
+
+    <div class="app-card">
+        <h2 class="app-name">推しポモドーロタイマー (OshiPoMo)</h2>
+        <p class="app-desc">
+            好きな画像を見守られながら作業に集中。カスタマイズ性の高いAndroid用ポモドーロタイマーです。
+        </p>
+        <div class="links">
+            <a href="https://play.google.com/store/apps/details?id=com.orishin.oshipomo&pcampaignid=web_share" class="btn-play" target="_blank">Google Play で手に入れる</a>
+            <a href="privacy_oshipomo.html" class="btn-privacy">プライバシーポリシー</a>
+        </div>
+    </div>
+
+    <div class="app-card">
+        <h2 class="app-name">ダブルタイマーアプリ</h2>
+        <p class="app-desc">
+            ひとつの画面で2つのカウントダウンを同時に管理できる、ミニマルでおしゃれなダイアル式タイマー。
+        </p>
+        <div class="links">
+            <a href="https://play.google.com/store/apps/details?id=com.orishin.w_timer&pcampaignid=web_share" class="btn-play" target="_blank">Google Play で手に入れる</a>
+            <a href="https://orm4n5.github.io/privacy_doubletimer.html" class="btn-privacy">プライバシーポリシー</a>
+        </div>
+    </div>
+
+    <div class="app-card">
+        <h2 class="app-name">JSONビューア＆エディター</h2>
+        <p class="app-desc">
+            複雑なJSONファイルを、スマホで「読みやすく」「書き換えやすく」。<br>デバッグから設定ファイルの変更まで、PCがない環境で活躍するツールです。
+        </p>
+        <div class="links">
+            <a href="https://play.google.com/store/apps/details?id=com.orishin.jsonviewer&pcampaignid=web_share" class="btn-play" target="_blank">Google Play で手に入れる</a>
+            <a href="https://orm4n5.github.io/privacy_json.html" class="btn-privacy">プライバシーポリシー</a>
+        </div>
+    </div>
+
+    <div class="app-card">
+        <h2 class="app-name">サブスク管理／Subskeep</h2>
+        <p class="app-desc">
+            サブスクリプションを賢く一覧管理。<br>解約シミュレーションで見直し・節約もできる、サブスク料金を「見える化」するアプリです。
+        </p>
+        <div class="links">
+            <a href="https://play.google.com/store/apps/details?id=com.orishin.subsc&pcampaignid=web_share" class="btn-play" target="_blank">Google Play で手に入れる</a>
+            <a href="https://orm4n5.github.io/privacy_subsc.html" class="btn-privacy">プライバシーポリシー</a>
+        </div>
+    </div>
+
+    <div class="app-card">
+        <h2 class="app-name">Screen-Filter</h2>
+        <p class="app-desc">
+            スマホの「見られたくない」を解決。<br>通知パネルから即起動し、外出先でのプライバシーを守る覗き見防止フィルターアプリです。
+        </p>
+        <div class="links">
+            <a href="#" class="btn-play btn-soon">Google Play 公開準備中</a>
+            <a href="https://orm4n5.github.io/privacy_screen.html" class="btn-privacy">プライバシーポリシー</a>
+        </div>
+    </div>
+
+    <div class="app-card">
+        <h2 class="app-name">PictoStep</h2>
+        <p class="app-desc">
+            【お子様との「できた！」を増やす、視覚支援アプリ】 <br>「何から始めればいい？」「次はなに？」 そんなお子様の不安を、「見通しカード」でサポートします。
+        </p>
+        <div class="links">
+            <a href="#" class="btn-play btn-soon">Google Play 公開準備中</a>
+            <a href="https://orm4n5.github.io/privacy_pictostep.html" class="btn-privacy">プライバシーポリシー</a>
+        </div>
+    </div>
+
+    <div class="app-card">
+        <h2 class="app-name">Qlip（クリップ）</h2>
+        <p class="app-desc">
+            AI任せにしない。自分の目で調べ、本当に残したい価値ある情報だけを厳選ストック。 <br>WebやPDF、読書プリの重要テキストをサクサクストックできるアプリです。
+        </p>
+        <div class="links">
+            <a href="#" class="btn-play btn-soon">Google Play 公開準備中</a>
+            <a href="https://orm4n5.github.io/privacy_qlip.html" class="btn-privacy">プライバシーポリシー</a>
+        </div>
+    </div>
+    
 </div>
 
 <footer>
-    <p>&copy; 2026 TSUMORI貯金 All Rights Reserved.</p>
+    <p>各アプリへのお問い合わせはストアの開発者ページから受け付けております。</p>
+    <p>&copy; 2026 orm4n5. All rights reserved.</p>
 </footer>
 
 </body>
