@@ -273,6 +273,21 @@
             border-top: 1px solid #cbd5e1;
         }
 
+        /* プライバシーポリシーリンクのスタイル */
+        .privacy-link {
+            display: inline-block;
+            margin-bottom: 12px;
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .privacy-link:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
         /* --- スマホ向け最適化 (完全レスポンシブ) --- */
         @media (max-width: 900px) {
             .feature-grid {
@@ -355,7 +370,7 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1 class="hero-title">わずか3秒で記録。<br>スワイプで楽しく<br>「つもり貯金」</h1>
+            <h1 class="hero-title">わずか3秒で記録。<br>スワイプで楽しい<br>「つもり貯金」</h1>
             <p class="hero-description">
                 ジュースやコーヒーを我慢したその瞬間に。直感的な操作と達成感のある演出で、あなたの節約を楽しくサポートします。
             </p>
@@ -435,6 +450,7 @@
 </div>
 
 <footer>
+    <a href="https://orm4n5.github.io/privacy_tsumori" class="privacy-link" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>
     <p>&copy; 2026 TSUMORI貯金 All Rights Reserved.</p>
 </footer>
 
