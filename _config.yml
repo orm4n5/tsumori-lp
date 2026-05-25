@@ -1,2 +1,4 @@
+url: "https://orm4n5.github.io/tsumori-lp" # 自分のGitHub PagesのURL（末尾のスラッシュは不要）
+
 plugins:
   - jekyll-sitemap
